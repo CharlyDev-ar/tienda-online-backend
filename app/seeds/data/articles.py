@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from app.api.v1.admin.articles.enums import UnitsType, StatusArticle
+from app.enums.articles import UnitsType, StatusArticle
 
 ARTICLES = [
     {

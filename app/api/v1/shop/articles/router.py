@@ -1,5 +1,3 @@
-from typing import Optional
-
 from fastapi import APIRouter, Depends, Query, status
 
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -21,9 +19,9 @@ router = APIRouter()
 async def get_all(  
     page_size: int = Query(default=10, ge=1, le=50),
     page: int = Query(default=1, ge=1),  
-    query: Optional[str] = Query(default=None, min_length=2, max_length=50),
-    brand: Optional[str] = Query(default=None, min_length=2, max_length=50),
-    category: Optional[str] = Query(default=None, min_length=2, max_length=50),    
+    query: str | None = Query(default=None, min_length=2, max_length=50),
+    brand: str | None = Query(default=None, min_length=2, max_length=50),
+    category: str | None = Query(default=None, min_length=2, max_length=50),    
     db: AsyncSession = Depends(get_session)
 ) -> ArticlePublicPagination:
     article_service = ArticleQueryService(db=db)

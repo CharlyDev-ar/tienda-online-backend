@@ -7,8 +7,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.models.invoice import Invoice
 from app.models.payments import Payment
 
-from .enums import PaymentStatus
-from .enums import TypeCurrency
+from app.enums.payment import PaymentStatus
+from app.enums.payment import TypeCurrency
 
 from .repository import PaymentRepository
 from .stripe import StripeService

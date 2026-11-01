@@ -3,7 +3,7 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 from app.utils.regex_validators import clean_string_spaces
 from app.utils.regex_validators import validate_password_strength
 from app.utils.security_constants import validate_no_forbidden_words
-from .enums import Role, UserStatus
+from app.enums.users import Role, UserStatus
 
 
 class UserValidate(BaseModel):

@@ -4,7 +4,7 @@ from sqlalchemy.orm import selectinload
 from sqlmodel import Sequence, func, select, asc, desc
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.api.v1.admin.articles.enums import StatusArticle
+from app.enums.articles import StatusArticle
 from app.models.brands import Brand
 from app.models.categories import Category
 
@@ -145,5 +145,5 @@ class ArticleRepository:
         for key, value in updates.items():
             setattr(article, key, value)
 
-        self.db.add(article)
+        self.db.add(article)        
         return article

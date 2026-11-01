@@ -2,7 +2,7 @@ from decimal import Decimal
 from typing import Optional
 from sqlmodel import Column, Field, Relationship, SQLModel, String
 
-from app.api.v1.admin.articles.enums import StatusArticle, UnitsType
+from app.enums.articles import StatusArticle, UnitsType
 from app.models.categories import Category
 from app.models.brands import Brand
 

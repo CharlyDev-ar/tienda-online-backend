@@ -64,11 +64,29 @@ class CategoryExistsException (HTTPException):
     )
 
 
+class CategoryNotFoundException (HTTPException):
+    '''Excepción se produce cuando la categoría no existe en la base de datos.'''
+    def __init__(self, detail: str = 'La categoría no existe'):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail=detail
+    )
+
+
 class BrandExistsException (HTTPException):
     '''Excepción se produce cuando la marca existe en la base de datos.'''
     def __init__(self, detail: str = 'La marca ya existe'):
         super().__init__(
             status_code=status.HTTP_409_CONFLICT, 
+            detail=detail
+    )
+
+
+class BrandNotFoundException (HTTPException):
+    '''Excepción se produce cuando la marca no existe en la base de datos.'''
+    def __init__(self, detail: str = 'La marca no existe'):
+        super().__init__(
+            status_code=status.HTTP_404_NOT_FOUND, 
             detail=detail
     )
 

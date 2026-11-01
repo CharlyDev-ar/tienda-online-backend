@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, File, Form
 from fastapi import HTTPException, UploadFile 
@@ -7,12 +7,12 @@ from fastapi import Path, Query, status
 
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from .enums import ArticleSortField, StatusArticle, UnitsType
+from app.enums.articles import ArticleSortField, StatusArticle, UnitsType
 from .schemas import ArticleCreate, ArticlePaginationResponse
-from .schemas import UpdateBrand, UpdateCategory, UpdatePrice
+from .schemas import UpdateBrand, UpdateCategory
 from .schemas import ArticleResponse, ArticleUpdate, UpdateStatus
 
-from .services import ArticleService
+from .services_crud import ArticleService
 from .services_query import ArticleQueryService
 
 from app.models.users import User
@@ -34,10 +34,10 @@ router = APIRouter()
 async def get_all(  
     page_size: int = Query(default=10, ge=1, le=50),
     page: int = Query(default=1, ge=1),  
-    title: Optional[str] = Query(default=None, min_length=2, max_length=50),
-    brand: Optional[str] = Query(default=None, min_length=2, max_length=50),
-    category: Optional[str] = Query(default=None, min_length=2, max_length=50),    
-    sort_by: Optional[ArticleSortField] = Query(
+    title: str | None = Query(default=None, min_length=2, max_length=50),
+    brand: str | None = Query(default=None, min_length=2, max_length=50),
+    category: str | None = Query(default=None, min_length=2, max_length=50),    
+    sort_by: ArticleSortField | None = Query(
         default=ArticleSortField.ID, 
         description='Campo por el cual ordenar'
     ),
@@ -113,7 +113,7 @@ async def insert_article(
     brand_id: int = Form(1),
     category_id: int = Form(1),
     units_type: UnitsType = Form(UnitsType.UNITS),        
-    image: Optional[UploadFile] = File(None),    
+    image: UploadFile | None = File(None),    
     user: User = support_assistant_dependency,
     db: AsyncSession = Depends(get_session)
 ) -> ArticleResponse:
@@ -143,10 +143,12 @@ async def insert_article(
     status_code=status.HTTP_200_OK
 )
 async def update_article(    
-    title: str = Form(...),
+    title: str | None = Form(None),
     detail: str | None = Form(None),    
-    units_type: UnitsType = Form(UnitsType.UNITS),        
-    image: Optional[UploadFile] = File(None), 
+    cost: Decimal | None = Form(None),
+    price: Decimal | None = Form(None), 
+    units_type: UnitsType | None = Form(None),        
+    image: UploadFile | None = File(None),
     article_id: int = Path(
         ..., 
         ge=1,
@@ -158,6 +160,8 @@ async def update_article(
     data = ArticleUpdate(
         title=title,
         detail=detail,        
+        cost=cost,
+        price=price,    
         units_type=units_type,
         image=get_image_filename(image=image)
     )
@@ -173,16 +177,6 @@ async def change_status(
 ) -> ArticleResponse:  
     data = UpdateStatus(status=status)  
     return await _process_article_update(db, user.id, article_id, data, 'status')
-
-
-@router.patch('/{article_id}/price', response_model=ArticleResponse)
-async def change_price(    
-    data: UpdatePrice,    
-    article_id: int = Path(..., ge=1, description='Identificador entero del artículo, debe ser mayor o igual a 1'),
-    user: User = support_assistant_dependency,
-    db: AsyncSession = Depends(get_session)
-) -> ArticleResponse:   
-    return await _process_article_update(db, user.id, article_id, data, 'price')
 
 
 @router.patch('/{article_id}/brand', response_model=ArticleResponse)
@@ -217,9 +211,7 @@ async def _process_article_update(
     try:
         match operation:
             case 'status':
-                return await article_service.change_status(data=data, article_id=article_id, user_id=user_id)
-            case 'price':
-                return await article_service.change_price(data=data, article_id=article_id, user_id=user_id)
+                return await article_service.change_status(data=data, article_id=article_id, user_id=user_id)            
             case 'brand':
                 return await article_service.change_brand(data=data, article_id=article_id, user_id=user_id)
             case 'category':

@@ -1,7 +1,7 @@
 from decimal import Decimal
 from typing import List, Optional
 from pydantic import BaseModel, ConfigDict
-from app.api.v1.admin.articles.enums import UnitsType
+from app.enums.articles import UnitsType
 
 
 class ArticlePublicResponse(BaseModel):

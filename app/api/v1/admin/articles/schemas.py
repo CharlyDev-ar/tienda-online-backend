@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic import computed_field, field_validator
 
-from .enums import UnitsType, StatusArticle
+from app.enums.articles import UnitsType, StatusArticle
 
 from app.utils.security_constants import validate_no_forbidden_words
 from app.utils.slug import convert_slug
@@ -41,16 +41,13 @@ class ArticleUpdate(ArticleBase):
     title: str | None = Field(default=None, min_length=1, max_length=50)    
     detail: str | None = Field(default=None, min_length=1, max_length=255)
     units_type: UnitsType | None = None
+    cost: Decimal | None = Field(default=None, ge=0)
+    price: Decimal | None = Field(default=None, ge=0)
     image: str | None = None    
 
 
 class UpdateStock(BaseModel):    
     stock: int = Field(..., description="Unidades a añadir o quitar")
-
-
-class UpdatePrice(BaseModel):  
-    cost: Decimal | None = Field(default=None, ge=0)
-    price: Decimal | None = Field(default=None, ge=0)
 
 
 class UpdateBrand(BaseModel):

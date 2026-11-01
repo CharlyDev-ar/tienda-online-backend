@@ -5,7 +5,7 @@ from fastapi import Depends
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.models.users import User
-from app.api.v1.users.enums import UserStatus, Role
+from app.enums.users import UserStatus, Role
 from app.api.v1.users.repository import UserRepository
 
 from app.core.security import oauth2_schema, decode_token

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.api.v1.admin.categories.schemas import CategoryCreate
-from app.api.v1.admin.movements.enums import MovementType, TargetType
+from app.enums.movements import MovementType, TargetType
 
 from app.models.categories import Category
 from app.models.movements import GenericActivityLog

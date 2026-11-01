@@ -3,7 +3,7 @@ from decimal import Decimal
 import stripe
 
 from app.core.config import settings
-from .enums import TypeCurrency
+from app.enums.payment import TypeCurrency
 
 
 class StripeService:

@@ -12,7 +12,7 @@ from app.models.users import User
 
 from app.utils.permission import manager_assistant_dependency
 
-from .enums import InvoiceSortField, InvoiceStatus
+from app.enums.invoice import InvoiceSortField, InvoiceStatus
 
 from .schemas import InvoicePaginationResponse
 from .schemas import InvoiceResponse

@@ -2,8 +2,8 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.models.invoice import Invoice
 
-from app.api.v1.admin.movements.enums import MovementType
-from app.api.v1.admin.movements.enums import TargetType
+from app.enums.movements import MovementType
+from app.enums.movements import TargetType
 
 from app.api.v1.shop.checkout.schemas import InvoiceCreate
 

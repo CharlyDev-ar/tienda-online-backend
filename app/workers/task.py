@@ -1,7 +1,7 @@
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.api.v1.admin.articles.schemas import UpdateStatus
-from app.api.v1.admin.articles.enums import StatusArticle
+from app.enums.articles import StatusArticle
 from app.api.v1.admin.articles.repository import ArticleRepository
 
 

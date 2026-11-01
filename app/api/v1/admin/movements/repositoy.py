@@ -1,7 +1,7 @@
 from sqlmodel import select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from app.models.movements import GenericActivityLog
-from .enums import MovementType
+from app.enums.movements import MovementType
 
 
 class ActivityRepository:

@@ -10,7 +10,7 @@ from app.models.items import InvoiceItem
 
 from app.models.movements import GenericActivityLog
 
-from app.api.v1.admin.movements.enums import MovementType, TargetType
+from app.enums.movements import MovementType, TargetType
 
 from app.api.v1.admin.movements.repositoy import ActivityRepository
 from app.core.exceptions import ArticleNotFound

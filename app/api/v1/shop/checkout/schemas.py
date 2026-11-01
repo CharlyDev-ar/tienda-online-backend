@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, computed_field
 from app.api.v1.shop.items.schemas import ItemCreate 
 from app.api.v1.shop.items.schemas import ItemPublic
 from app.api.v1.shop.payments.schemas import CardStripe
-from app.api.v1.admin.invoices.enums import InvoiceStatus
+from app.enums.invoice import InvoiceStatus
 
 
 class InvoiceBase(BaseModel):    

@@ -5,7 +5,7 @@ from .repository import InvoiceRepository
 
 from app.core.exceptions import InvoiceNotFound
 from app.core.pagination import get_pagination
-from .enums import InvoiceStatus
+from .....enums.invoice import InvoiceStatus
 
 
 class InvoiceQueryService:

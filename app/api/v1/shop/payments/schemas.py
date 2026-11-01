@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
-from .enums import TypeCurrency
+from app.enums.payment import TypeCurrency
 
 
 class PaymentCreate(BaseModel):    

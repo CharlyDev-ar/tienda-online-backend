@@ -4,29 +4,28 @@ from sqlalchemy.orm import selectinload
 from sqlmodel import Sequence, func, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from app.api.v1.admin.articles.enums import StatusArticle
+from app.enums.articles import StatusArticle
 from app.models.brands import Brand
 from app.models.categories import Category
 
 from app.models.articles import Article
 
 
-
 class ArticleRepository:
-    def __init__(self, db: AsyncSession):
-      self.db = db
+    def __init__(self, db: AsyncSession):        
+        self.db = db
 
 
     async def get(self, article_id: int) -> Article | None:
-      """Perfecto: Carga el artículo con sus relaciones de forma limpia"""
-      query = (
-          select(Article)
-              .options(selectinload(Article.category))
-              .options(selectinload(Article.brand))
-              .where(Article.id == article_id)
-      )
-      result = await self.db.exec(query)
-      return result.first()
+        """Perfecto: Carga el artículo con sus relaciones de forma limpia"""
+        query = (
+            select(Article)
+                .options(selectinload(Article.category))
+                .options(selectinload(Article.brand))
+                .where(Article.id == article_id)
+        )
+        result = await self.db.exec(query)
+        return result.first()
 
     async def get_by_slug(self, slug: str) -> Article | None:
         query = (

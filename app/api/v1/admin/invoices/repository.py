@@ -7,7 +7,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from app.models.users import User
 
 from app.models.invoice import Invoice
-from .enums import InvoiceStatus
+from app.enums.invoice import InvoiceStatus
 
 
 class InvoiceRepository:

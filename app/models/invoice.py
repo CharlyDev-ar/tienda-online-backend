@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import TYPE_CHECKING, Optional
 from sqlmodel import Column, Field, Relationship, SQLModel, String
 
-from app.api.v1.admin.invoices.enums import InvoiceStatus
+from app.enums.invoice import InvoiceStatus
 
 
 if TYPE_CHECKING:
